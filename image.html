@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter des Images Avant et Après</title>
+    <link rel="stylesheet" href="image.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ajouter des Images Avant et Après</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <label for="before-image">Image Avant:</label>
+            <input type="file" id="before-image" name="before-image" accept="image/*" required>
+            
+            <label for="after-image">Image Après:</label>
+            <input type="file" id="after-image" name="after-image" accept="image/*" required>
+            
+            <button type="submit">Soumettre</button>
+        </form>
+        <div id="response"></div>
+    </div>
+    <script src="image.js"></script>
+</body>
+</html>

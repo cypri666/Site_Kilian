@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5;url=Page1.html">
+    <title>Redirection...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: #4b6584;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        .timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Redirection vers la page d'accueil...</h2>
+        <p class="message">Vous serez automatiquement redirigé vers la page d'accueil dans <span class="timer">5</span> secondes.</p>
+    </div>
+
+    <script>
+        let countdown = 5;
+        const timerElement = document.querySelector('.timer');
+        const interval = setInterval(() => {
+            countdown--;
+            timerElement.textContent = countdown;
+            if (countdown === 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

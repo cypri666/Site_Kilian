@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactez-moi</title>
+    <!-- Ajout de Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha384-QyG2e0vvoRC/czXaFL1O5gNQ6oXFF+lo9z90lNal6i/SM39HtPm9P3hTtI/EZJNj" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Mode sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Bouton mode sombre */
+        #darkModeToggle {
+            background-color: #ff8c00;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        #darkModeToggle:hover {
+            background-color: #e67e22;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 20px;
+            padding: 20px;
+        }
+
+        .contact-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-info ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info ul li i {
+            margin-right: 10px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .contact-form button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #555;
+        }
+
+        .social-media {
+            margin-top: 20px;
+        }
+
+        .social-media a {
+            color: #333;
+            font-size: 1.5rem;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .social-media a:hover {
+            color: #007BFF;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            margin-top: 40px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-top: 1px solid #444;
+            font-family: 'Arial', sans-serif;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #e67e22;
+        }
+
+        /* Style pour le chatbot */
+        #chatbot {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatbot-header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #chatbot-messages {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #chatbot-input {
+            width: 100%;
+            border: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #chatbot-send,
+        #chatbot-close {
+            width: 100%;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+        }
+
+        #chatbot-send {
+            background-color: #007bff;
+        }
+
+        #chatbot-close {
+            background-color: #dc3545;
+        }
+
+        .message {
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.bot {
+            text-align: left;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Contactez-moi</h1>
+        <nav>
+            <ul>
+                <li><a href="Page1.html">Accueil</a></li>
+                <li><a href="qui.html">Qui suis-je ?</a></li>
+                <li><a href="service.html">Mes Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="admin.html">Administrateur</a></li>
+                <li><a href="creercompte.html">Se connecter</a></li>
+                <li><a href="jeu.html">Jeux</a></li>
+                <li><button id="darkModeToggle" class="mode-toggle-btn">Mode sombre</button></li>
+                <li><a href="#" id="toggleChatbotBtn"><i class="fas fa-comment-alt"></i> Chatbot</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-info">
+                <h2>Me contacter</h2>
+                <p>Je serais ravi de recevoir vos messages.</p>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Rue Exemple, Paris, France</li>
+                    <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
+                    <li><i class="fas fa-envelope"></i> contact@exemple.com</li>
+                </ul>
+                <div class="social-media">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h2>Envoyez-moi un message</h2>
+                <form id="contactForm">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="subject">Sujet</label>
+                    <input type="text" id="subject" name="subject" required>
+                    
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <div id="chatbot">
+        <div id="chatbot-header">
+            <h3>Chatbot Kilian Sport</h3>
+        </div>
+        <div id="chatbot-messages"></div>
+        <input type="text" id="chatbot-input" placeholder="Posez une question... (ex. Programme d'entraînement)">
+        <button id="chatbot-send">Envoyer</button>
+        <button id="chatbot-close">Fermer</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Kilian Quemarrec. Tous droits réservés.</p>
+        <p>Créateur du site web : Cyprien Levasseur</p>
+        <p><a href="https://www.linkedin.com/in/cyprien-levasseur-a04141231/" target="_blank">Visitez mon LinkedIn</a></p>
+    </footer>
+
+    <script>
+        // Récupérer les éléments du chatbot
+        const chatbot = document.getElementById("chatbot");
+        const toggleChatbotBtn = document.getElementById("toggleChatbotBtn");
+        const messages = document.getElementById("chatbot-messages");
+        const input = document.getElementById("chatbot-input");
+        const sendButton = document.getElementById("chatbot-send");
+        const closeButton = document.getElementById("chatbot-close");
+
+        // Fonction pour envoyer un message du chatbot
+        function sendMessage(message, sender) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message", sender);
+            messageElement.innerText = message;
+            messages.appendChild(messageElement);
+            messages.scrollTop = messages.scrollHeight; // Fait défiler automatiquement vers le bas
+        }
+
+        // Fonction pour que le chatbot réponde automatiquement
+        function autoReply() {
+            const message = "Bonjour! Comment puis-je vous aider ?";
+            sendMessage(message, "bot");
+        }
+
+        // Événement de clic pour envoyer un message
+        sendButton.addEventListener("click", function () {
+            const message = input.value;
+            if (message.trim() !== "") {
+                sendMessage(message, "user");
+                input.value = ""; // Effacer le champ de saisie
+                autoReply(); // Envoyer une réponse automatique du chatbot
+            }
+        });
+
+        // Exemple de réponse automatique du chatbot
+        setTimeout(function () {
+            autoReply();
+        }, 1000); // Envoyer une réponse après 1 seconde (pour simulation)
+
+        // Événement de clic pour fermer le chatbot
+        closeButton.addEventListener("click", function () {
+            chatbot.style.display = "none";
+        });
+
+        // Événement de clic pour ouvrir/fermer le chatbot
+        toggleChatbotBtn.addEventListener("click", function () {
+            if (chatbot.style.display === "none" || chatbot.style.display === "") {
+                chatbot.style.display = "block";
+            } else {
+                chatbot.style.display = "none";
+            }
+        });
+
+        // Mode sombre
+        const toggleBtn = document.getElementById('darkModeToggle');
+        toggleBtn.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Contact Form Submission with mailto
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            const mailtoLink = `mailto:kiquemarrec@hotmail.fr?subject=${encodeURIComponent(subject)}&body=Nom: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AMessage: ${encodeURIComponent(message)}`;
+            
+            window.location.href = mailtoLink;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification Google Callback</title>
+</head>
+
+<body>
+    <h1>Authentification Google en cours...</h1>
+    <script>
+        // Capture le token depuis l'URL de redirection après la connexion Google
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = urlParams.get('access_token');
+            
+            if (accessToken) {
+                // Utilise cet access token pour récupérer les informations de l'utilisateur depuis Google
+                fetch('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken)
+                    .then(response => response.json())
+                    .then(userData => {
+                        console.log(userData); // Données de l'utilisateur récupérées
+                        alert(`Bienvenue, ${userData.name}`);
+                        // Tu peux ensuite stocker les données de l'utilisateur ou rediriger vers une autre page
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération des données utilisateur:', error));
+            } else {
+                alert('Erreur d\'authentification.');
+            }
+        };
+    </script>
+</body>
+
+</html>

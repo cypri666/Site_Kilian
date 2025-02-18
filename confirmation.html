@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="confirmation.css">
+    <title>Confirmation de Commande</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-QyG2e0vvoRC/czXaFL1O5gNQ6oXFF+lo9z90lNal6i/SM39HtPm9P3hTtI/EZJNj" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Confirmation de Commande</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="Page1.html">Accueil</a></li>
+            <li><a href="qui.html">Qui suis-je ?</a></li>
+            <li><a href="service.html">Mes Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="boutique.html">Boutique</a></li>
+            <li><a href="admin.html">Administrateur</a></li>
+            <li><a href="creercompte.html" id="loginBtn">Se connecter</a></li>
+            <li><a href="jeu.html">Jeux</a></li>
+            <li><a href="#" id="toggleChatbotBtn"><i class="fas fa-comment-alt"></i> Chatbot</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="confirmation-container">
+                <div class="confirmation-message">
+                    <h2>Merci pour votre commande !</h2>
+                    <p>Votre commande a été confirmée avec succès.</p>
+                    <p>Un e-mail de confirmation a été envoyé à votre adresse : <span id="emailPlaceholder">exemple@mail.com</span></p>
+                    <p>Merci d'avoir choisi notre boutique.</p>
+                </div>
+                <div id="confirmation-animation" class="confirmation-animation">
+                    <img src="merci.png" alt="Checkmark">
+                    <p>Votre commande est confirmée !</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Votre Boutique en Ligne. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

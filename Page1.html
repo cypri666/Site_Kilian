@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilian Coach Sportif - Bienvenue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        header .logo {
+            width: 40px;
+            height: auto;
+        }
+
+        #menu {
+            display: flex;
+            gap: 15px;
+        }
+
+        #menu ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 10px 15px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #menu ul li a:hover {
+            background-color: #ff8c00;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Menu hamburger */
+        .menu-icon {
+            display: none;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .menu-container {
+            display: flex;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            padding: 20px 0;
+            text-align: center;
+            flex-direction: column;
+            gap: 10px;
+            display: none;
+        }
+
+        .menu-container ul {
+            display: block;
+            padding: 0;
+            list-style: none;
+        }
+
+        .menu-container ul li {
+            padding: 10px;
+        }
+
+        .menu-container ul li a {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            #menu {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .menu-container.active {
+                display: flex;
+            }
+        }
+
+        .background-image {
+            background: url('fond_image.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-top: 80px;
+            position: relative;
+            background-color: #1e1e1e;
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .background-image h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .background-image p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .cta-button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background-color: #ff8c00;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: #e67e22;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #e67e22;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.3rem; /* Adjust for smaller screens */
+            }
+
+            .background-image h2 {
+                font-size: 2rem;
+            }
+
+            .background-image p {
+                font-size: 1rem;
+            }
+
+            .game-container {
+                margin-top: 50px;
+            }
+
+            .cta-button {
+                font-size: 0.9rem;
+                padding: 12px 35px;
+            }
+
+            .game-image {
+                max-width: 90%; /* Make sure the image fits on smaller screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="https://via.placeholder.com/50" alt="Logo" class="logo">
+        <h1><i class="fas fa-dumbbell"></i> Kilian Coach Sportif</h1>
+        <div id="menu">
+            <ul>
+                <li><a href="Page1.html"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="qui-suije.html"><i class="fas fa-user"></i> Qui suis-je ?</a></li>
+                <li><a href="service.html"><i class="fas fa-cogs"></i> Mes Services</a></li>
+                <li><a href="boutique.html"><i class="fas fa-store"></i> Boutique</a></li>
+            </ul>
+        </div>
+        <i class="fas fa-bars menu-icon" id="menu-icon"></i>
+    </header>
+
+    <!-- Hamburger Menu Container -->
+    <div class="menu-container" id="menu-container">
+        <ul>
+            <li><a href="Page1.html"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="qui-suije.html"><i class="fas fa-user"></i> Qui suis-je ?</a></li>
+            <li><a href="service.html"><i class="fas fa-cogs"></i> Mes Services</a></li>
+            <li><a href="boutique.html"><i class="fas fa-store"></i> Boutique</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section with Background Image -->
+    <div class="background-image">
+        <h2>Transformez votre vie avec un coach sportif passionné</h2>
+        <p>Rejoignez des centaines de clients satisfaits et atteignez vos objectifs avec un accompagnement personnalisé.</p>
+        <a href="service.html"><button class="cta-button">Rejoindre maintenant</button></a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Kilian Coach Sportif. Tous droits réservés.</p>
+        <p><a href="https://www.linkedin.com/in/cyprien-levasseur-a04141231/" target="_blank">Créateur : Cyprien Levasseur</a></p>
+    </footer>
+
+    <script>
+        // Toggle menu visibility on mobile
+        const menuIcon = document.getElementById("menu-icon");
+        const menuContainer = document.getElementById("menu-container");
+
+        menuIcon.addEventListener("click", () => {
+            menuContainer.classList.toggle("active");
+        });
+    </script>
+</body>
+
+</html>

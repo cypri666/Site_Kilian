@@ -1,0 +1,28 @@
+document.getElementById('adminLoginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPassword').value.trim();
+
+    try {
+        // Envoi de la requête au serveur pour vérifier l'email et le mot de passe
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Redirige vers la page admin si la connexion est réussie
+            window.location.href = 'admin.html';
+        } else {
+            // Affiche un message d'erreur si l'email ou mot de passe est incorrect
+            document.getElementById('errorMessage').textContent = 'Email ou mot de passe incorrect.';
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        document.getElementById('errorMessage').textContent = 'Une erreur est survenue. Veuillez réessayer.';
+    }
+});

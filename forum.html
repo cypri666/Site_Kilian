@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilian - Forum de Discussion</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #ddd;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        #darkModeToggle {
+            background-color: #ff8c00;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        #darkModeToggle:hover {
+            background-color: #e67e22;
+        }
+
+        .container {
+            padding: 120px 20px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+
+        .discussion {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .discussion {
+            background-color: #2e2e2e;
+            color: #ddd;
+        }
+
+        .discussion h3 {
+            margin-top: 0;
+        }
+
+        .discussion .message {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .discussion .message {
+            background-color: #333;
+        }
+
+        .new-discussion input,
+        .new-discussion textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .new-discussion input,
+        body.dark-mode .new-discussion textarea {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .new-discussion button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .new-discussion button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            width: 100%;
+            border-top: 1px solid #444;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ff8c00;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #e67e22;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Kilian Coach Sportif</h1>
+        <nav>
+            <ul>
+                <li><a href="Page1.html">Accueil</a></li>
+                <li><a href="qui.html">Qui suis-je ?</a></li>
+                <li><a href="service.html">Mes Services</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="page_photos.html">Photos</a></li>
+                <li><a href="admin.html">Administrateur</a></li>
+                <li><a href="forum.html">Forum</a></li>
+                <li><a href="creercompte.html">Créer compte</a></li>
+                <li><a href="se_connecter.html">Se connecter</a></li>
+                <li><button id="darkModeToggle">Mode sombre</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Formulaire pour ajouter une nouvelle discussion -->
+        <div class="new-discussion">
+            <h3>Créer une nouvelle discussion</h3>
+            <input type="text" id="newDiscussionTitle" placeholder="Titre de la discussion" required>
+            <textarea id="newDiscussionMessage" placeholder="Entrez votre message" required></textarea>
+            <button id="createDiscussionBtn">Créer la discussion</button>
+        </div>
+
+        <!-- Liste des discussions -->
+        <div id="discussionsList"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Kilian Quemarrec. Tous droits réservés.</p>
+        <p>Créateur du site web : Cyprien Levasseur</p>
+        <p><a href="https://www.linkedin.com/in/cyprien-levasseur-a04141231/" target="_blank">Visitez mon LinkedIn</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const discussionsList = document.getElementById('discussionsList');
+            const newDiscussionTitle = document.getElementById('newDiscussionTitle');
+            const newDiscussionMessage = document.getElementById('newDiscussionMessage');
+            const createDiscussionBtn = document.getElementById('createDiscussionBtn');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+
+            // Stocker les discussions dans le localStorage
+            let discussions = JSON.parse(localStorage.getItem('discussions')) || [];
+
+            // Fonction pour afficher toutes les discussions
+            function displayDiscussions() {
+                discussionsList.innerHTML = '';
+                discussions.forEach((discussion, index) => {
+                    const discussionElement = document.createElement('div');
+                    discussionElement.classList.add('discussion');
+                    discussionElement.innerHTML = `
+                        <h3>${discussion.title}</h3>
+                        <div class="message">
+                            <div class="message-author">Auteur: ${discussion.author}</div>
+                            <div class="message-time">${discussion.time}</div>
+                            <div class="message-content">${discussion.message}</div>
+                        </div>
+                        <button class="reply-btn" onclick="toggleReplyForm(${index})">Répondre</button>
+                        <div class="reply-form" id="replyForm-${index}">
+                            <textarea id="replyMessage-${index}" placeholder="Votre réponse"></textarea>
+                            <button onclick="addReply(${index})">Envoyer</button>
+                        </div>
+                        <div id="replies-${index}">
+                            ${discussion.replies.map(reply => `
+                                <div class="message">
+                                    <div class="message-author">${reply.author}</div>
+                                    <div class="message-time">${reply.time}</div>
+                                    <div class="message-content">${reply.message}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    discussionsList.appendChild(discussionElement);
+                });
+            }
+
+            // Fonction pour basculer le formulaire de réponse
+            window.toggleReplyForm = function (index) {
+                const replyForm = document.getElementById(`replyForm-${index}`);
+                replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
+            };
+
+            // Fonction pour ajouter une nouvelle discussion
+            createDiscussionBtn.addEventListener('click', function () {
+                const title = newDiscussionTitle.value;
+                const message = newDiscussionMessage.value;
+                const newDiscussion = {
+                    title: title,
+                    author: 'Utilisateur', // Vous pouvez implémenter l'authentification ici
+                    message: message,
+                    time: new Date().toLocaleString(),
+                    replies: []
+                };
+
+                discussions.push(newDiscussion);
+                localStorage.setItem('discussions', JSON.stringify(discussions));
+                displayDiscussions();
+                newDiscussionTitle.value = '';
+                newDiscussionMessage.value = '';
+            });
+
+            // Fonction pour ajouter une réponse
+            window.addReply = function (index) {
+                const replyMessage = document.getElementById(`replyMessage-${index}`).value;
+                if (replyMessage) {
+                    const reply = {
+                        author: 'Utilisateur',
+                        message: replyMessage,
+                        time: new Date().toLocaleString()
+                    };
+
+                    discussions[index].replies.push(reply);
+                    localStorage.setItem('discussions', JSON.stringify(discussions));
+                    displayDiscussions();
+                }
+            };
+
+            // Afficher les discussions au chargement
+            displayDiscussions();
+
+            // Gestion du mode sombre
+            darkModeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+
+            // Activer le mode sombre si l'utilisateur l'a activé précédemment
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique - Kilian Coach Sportif</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        #menu ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 12px 18px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #menu ul li a:hover {
+            background-color: #ff8c00;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-bar-container {
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .search-bar-container input {
+            width: 70%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-bar-container button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar-container button:hover {
+            background-color: #e67e22;
+        }
+
+        .filter-controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .filter-controls select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 300px;
+            width: 100%;
+            position: relative;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product canvas {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .pagination {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .pagination button {
+            padding: 10px;
+            font-size: 1rem;
+            margin: 0 5px;
+            border: none;
+            background-color: #ff8c00;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination button:hover {
+            background-color: #e67e22;
+        }
+
+        .checkout-container {
+            margin-top: 50px;
+        }
+
+        .checkout-container form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .checkout-container form input,
+        .checkout-container form button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .checkout-container form button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .checkout-container form button:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1><i class="fas fa-dumbbell"></i> Kilian Coach Sportif</h1>
+        <div id="menu">
+           <ul>
+                <li><a href="Page1.html"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="qui-suije.html"><i class="fas fa-user"></i> Qui suis-je ?</a></li>
+                <li><a href="service.html"><i class="fas fa-cogs"></i> Mes Services</a></li>
+                <li><a href="boutique.html"><i class="fas fa-store"></i> Boutique</a></li>
+               <!--  <li><a href="page_photos.html"><i class="fas fa-image"></i> Photos</a></li>-->
+                <!-- <li><a href="connexionadmin.html"><i class="fas fa-tools"></i> Admin</a></li>-->
+                 <!-- <li><a href="creercompte.html"><i class="fas fa-user-plus"></i> Créer un compte</a></li>-->
+                 <!-- <li><a href="se_connecter.html"><i class="fas fa-sign-in-alt"></i> Se connecter</a></li>-->
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Rechercher un programme...">
+            <button onclick="searchProducts()">Rechercher</button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-controls">
+            <select id="sortSelect" onchange="sortProducts()">
+                <option value="default">Trier par défaut</option>
+                <option value="asc">Prix croissant</option>
+                <option value="desc">Prix décroissant</option>
+            </select>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="products" class="product-grid"></div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination"></div>
+
+        <!-- Checkout Form -->
+        <div class="checkout-container">
+            <h3>Passer à la caisse</h3>
+            <form id="checkoutForm" action="#" method="POST">
+                <input type="text" id="cardholderName" placeholder="Nom sur la carte" required>
+                <div id="card-element"></div>
+                <button type="submit">Payer</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Kilian Coach Sportif. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        const stripe = Stripe('YOUR_STRIPE_PUBLIC_KEY');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const { token, error } = await stripe.createToken(cardElement);
+            if (error) {
+                alert(error.message);
+            } else {
+                // Handle payment logic here
+                alert('Paiement effectué avec succès!');
+            }
+        });
+
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+
+        function loadProducts() {
+            const productGrid = document.getElementById("products");
+            const pagination = document.getElementById("pagination");
+            productGrid.innerHTML = "";
+
+            const start = 0;
+            const end = products.length;
+            const currentProducts = products.slice(start, end);
+
+            currentProducts.forEach((product, index) => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+
+                productDiv.innerHTML = `
+                    <canvas id="canvas-${index}" style="border: 1px solid #ddd; margin-bottom: 10px;"></canvas>
+                    <h2>${product.name}</h2>
+                    <p>Prix : ${product.price} €</p>
+                    <button class="buy-button" onclick="buyProduct('${product.name}')">Acheter pour ${product.price} €</button>
+                `;
+                productGrid.appendChild(productDiv);
+                renderPdfPreview(product.file, `canvas-${index}`);
+            });
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById("pagination");
+            const totalPages = Math.ceil(products.length / 10);
+            pagination.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.textContent = i;
+                button.onclick = () => {
+                    currentPage = i;
+                    loadProducts();
+                };
+                pagination.appendChild(button);
+            }
+        }
+
+        function renderPdfPreview(pdfUrl, canvasId) {
+            const canvas = document.getElementById(canvasId);
+            pdfjsLib.getDocument(pdfUrl).promise
+                .then(pdf => pdf.getPage(1))
+                .then(page => {
+                    const viewport = page.getViewport({ scale: 1 });
+                    const context = canvas.getContext("2d");
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+        }
+
+        function buyProduct(productName) {
+            alert(`Produit ${productName} ajouté au panier.`);
+        }
+
+        function searchProducts() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            products = JSON.parse(localStorage.getItem('products')) || [];
+            products = products.filter(product => product.name.toLowerCase().includes(query));
+            loadProducts();
+        }
+
+        function sortProducts() {
+            const sortOption = document.getElementById("sortSelect").value;
+
+            if (sortOption === "asc") {
+                products.sort((a, b) => a.price - b.price);
+            } else if (sortOption === "desc") {
+                products.sort((a, b) => b.price - a.price);
+            }
+
+            loadProducts();
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProducts);
+    </script>
+</body>
+
+</html>

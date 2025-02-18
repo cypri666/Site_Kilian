@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réinitialisation du Mot de Passe</title>
+    <link rel="stylesheet" href="envoyé.css">
+</head>
+<body>
+    <header>
+        <h1>Kilian Coach</h1>
+        <nav>
+            <ul>
+                <li><a href="Page1.html">Acceuil</a></li>
+                    <li><a href="qui.html">Qui suis-je ?</a></li>
+                    <li><a href="service.html">Mes Services</a></li>
+                   <li><a href="contact.html">Contact</a></li>
+                    <li><a href="boutique.html">Boutique</a></li>
+                    <li><a href="admin.html">Administrateur</a></li>
+                    <li><a href="creercompte.html" id="loginBtn">Se connecter</a></li>
+                    <li><a href="jeu.html">Jeux</a></li>
+                    <li><a href="#" id="toggleChatbotBtn"><i class="fas fa-comment-alt"></i> Chatbot</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Mot de passe réinitialisé</h2>
+        <video id="video" autoplay loop disablePictureInPicture disableRemotePlayback>
+            <source src="mail.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p>Votre mot de passe de réinitialisation a été envoyé à votre adresse e-mail.</p>
+    </div>
+
+    <footer>
+        © 2024 Votre Site - Tous droits réservés
+    </footer>
+
+    <script>
+        var video = document.getElementById("video");
+        video.addEventListener("ended", function() {
+            video.currentTime = 0; // Réinitialiser le temps de la vidéo à 0
+            video.play(); // Relancer la vidéo
+        });
+    </script>
+</body>
+</html>
