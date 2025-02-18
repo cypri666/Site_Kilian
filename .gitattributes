@@ -1,1 +1,2 @@
 public/node.exe filter=lfs diff=lfs merge=lfs -text
+node.exe filter=lfs diff=lfs merge=lfs -text
